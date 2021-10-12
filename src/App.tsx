@@ -1,13 +1,15 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import "./App.css";
+import CustomerCard from "./components/customerCard";
 import ReservationCard from "./components/reservationCard";
 import { addReservationAction } from "./redux/features/reservationSlice";
 import { RootState } from "./redux/store";
 
 function App() {
   const dispatch = useDispatch();
-  const { value } = useSelector((state: RootState) => state.reservations);
+  const { value: reservatonValue } = useSelector((state: RootState) => state.reservations);
+  const { value: customerValue } = useSelector((state: RootState) => state.customers)
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
@@ -17,7 +19,7 @@ function App() {
           <div>
             <h5 className="reservation-header">Reservations</h5>
             <div className="reservation-cards-container">
-              {value.map((_val, index) => (
+              {reservatonValue.map((_val, index) => (
                 <ReservationCard key={index} value={_val} index={index} />
               ))}
             </div>
@@ -28,16 +30,9 @@ function App() {
           </div>
         </div>
         <div className="customer-food-container">
-          <div className="customer-food-card-container">
-            <p>Selena Gomez</p>
-            <div className="customer-foods-container">
-              <div className="customer-food"></div>
-              <div className="customer-food-input-container">
-                <input />
-                <button>Add</button>
-              </div>
-            </div>
-          </div>
+          {customerValue.map((_val) => (
+            <CustomerCard id={_val.id} name={_val.name} food={_val.food} />
+          ))}
         </div>
       </div>
     </div>
