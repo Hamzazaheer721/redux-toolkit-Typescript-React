@@ -17,8 +17,8 @@ function App() {
           <div>
             <h5 className="reservation-header">Reservations</h5>
             <div className="reservation-cards-container">
-              {value.map((_val) => (
-                <ReservationCard key={_val + Math.random()} value={_val} />
+              {value.map((_val, index) => (
+                <ReservationCard key={index} value={_val} index={index} />
               ))}
             </div>
           </div>

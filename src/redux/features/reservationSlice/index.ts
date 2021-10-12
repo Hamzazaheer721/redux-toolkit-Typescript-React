@@ -15,9 +15,14 @@ export const reservationSlice = createSlice({
     addReservationAction: (state = initialState, action : PayloadAction<string>) => {
       const {value} = state;
       const {payload} = action;
-      value.push(payload)
+      value.push(payload);
+    },
+    removeReservationAction: (state : IInitialStateProps, action: PayloadAction<number>)=>{
+      const {value} = state;
+      const {payload}= action;
+      value.splice(payload, 1);
     }
   }
 })
 
-export const {addReservationAction} = reservationSlice.actions;
+export const {addReservationAction, removeReservationAction} = reservationSlice.actions;
