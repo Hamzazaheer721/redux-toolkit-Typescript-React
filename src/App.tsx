@@ -1,6 +1,15 @@
-import React, { useState } from "react";
+import { useRef } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import "./App.css";
+import ReservationCard from "./components/reservationCard";
+import { addReservationAction } from "./redux/features/reservationSlice";
+import { RootState } from "./redux/store";
+
 function App() {
+  const dispatch = useDispatch();
+  const { value } = useSelector((state: RootState) => state.reservations);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className="App">
       <div className="container">
@@ -8,12 +17,14 @@ function App() {
           <div>
             <h5 className="reservation-header">Reservations</h5>
             <div className="reservation-cards-container">
-              <div className="reservation-card-container">Laith Harb</div>
+              {value.map((_val) => (
+                <ReservationCard key={_val + Math.random()} value={_val} />
+              ))}
             </div>
           </div>
           <div className="reservation-input-container">
-            <input />
-            <button>Add</button>
+            <input ref={inputRef} />
+            <button onClick={() => inputRef.current && inputRef.current.value && dispatch(addReservationAction(inputRef.current.value))}>Add</button>
           </div>
         </div>
         <div className="customer-food-container">
