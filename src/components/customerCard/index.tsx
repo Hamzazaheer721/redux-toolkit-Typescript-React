@@ -11,11 +11,13 @@ interface ICustomerCardProps {
 const CustomerCard: FC<ICustomerCardProps> = memo(({ id, food, name }) => {
   const dispatch = useDispatch();
   const inputRef = useRef<HTMLInputElement>(null)
+
   const handleFoodAdd = useCallback(() => {
     if (inputRef.current) {
       const { value } = inputRef.current;
       dispatch(addFoodtoCustomerAction({ id, name: value }))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
