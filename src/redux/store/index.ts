@@ -1,13 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { customerSlice } from "../features/customerSlice";
-import { reservationSlice } from "../features/reservationSlice";
-
+import { reducer } from "../reducer";
+import logger from 'redux-logger'
 
 export const store = configureStore({
-  reducer: {
-    reservations: reservationSlice.reducer,
-    customers: customerSlice.reducer
-  }
+  reducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 })
 
 export type RootState = ReturnType <typeof store.getState>
